@@ -28,8 +28,10 @@ with open("blogtext.csv", "r", encoding="utf-8") as read_file:
                 break
             # no errors loading the row if we got to this point
             stripped_text: str = row[text_idx].strip()
-            # if not more than 500 characters, ignore.
-            if len(stripped_text) < 500:
+            # if not between 500 and 5000 words, ignore.
+            # Only 216 entries in original are > 5000 words so this mostly just saves space
+            # while making sure post is long enough to be meaningful
+            if not 500 <= len(stripped_text.split()) < 5000:
                 continue
             # write reduced row to cleaned_blogtext.csv
             row[text_idx] = stripped_text
