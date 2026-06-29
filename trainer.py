@@ -2,6 +2,7 @@ import csv
 from enum import IntEnum
 
 from datasets import load_dataset
+from pathlib import Path
 from trl import SFTConfig, SFTTrainer
 from unsloth import apply_chat_template, FastLanguageModel, standardize_sharegpt, to_sharegpt
 
@@ -70,7 +71,8 @@ if __name__ == "main":
     )
 
     # load dataset
-    dataset = load_dataset("csv", data_files={"train": "data\\same-prior_0.5\\train.csv", "dev": "data\\same-prior_0.5\\dev.csv"})
+    data_folder = Path("data") / "same-prior_0.5"
+    dataset = load_dataset("csv", data_files={"train": str(data_folder / "train.csv"), "dev": str(data_folder / "dev.csv")})
 
     input_template = """Post #1:\n{Text A}\n\nPost #2:\n{Text B}"""
 
@@ -153,7 +155,7 @@ if __name__ == "main":
     # format: [[true positive, unknown (positive), false negative],
     #          [false positive, unknown (positive), true negative]]
     confusion_matrix = [[0, 0, 0], [0, 0, 0]]
-    with open("data\\same-prior_0.5\\dev.csv", "r", encoding="utf-8") as dev_file:
+    with open(data_folder / "dev.csv", "r", encoding="utf-8") as dev_file:
         reader = csv.DictReader(dev_file)
 
         for i in range(100):

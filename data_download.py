@@ -24,7 +24,7 @@ try:
     data_folder_path.mkdir()
 except FileExistsError:
     pass
-kagglehub.dataset_download("rtatman/blog-authorship-corpus", output_dir=".\\data")
+kagglehub.dataset_download("rtatman/blog-authorship-corpus", output_dir=str(data_folder_path.resolve()))
 raw_data_path = data_folder_path / "blogtext.csv"
 # load data
 posts: defaultdict[str, list[str]] = defaultdict(list)
