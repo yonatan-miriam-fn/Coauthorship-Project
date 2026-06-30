@@ -1,11 +1,11 @@
 import csv
 from enum import IntEnum
-
-import torch
-from datasets import load_dataset
 from pathlib import Path
-from trl import SFTConfig, SFTTrainer
+
 from unsloth import apply_chat_template, FastLanguageModel, standardize_sharegpt, to_sharegpt
+
+from datasets import load_dataset
+from trl import SFTConfig, SFTTrainer
 
 if __name__ == "main":
     import argparse
