@@ -7,12 +7,12 @@ from unsloth import apply_chat_template, FastLanguageModel, standardize_sharegpt
 from datasets import load_dataset
 from trl import SFTConfig, SFTTrainer
 
-if __name__ == "main":
+if __name__ == "__main__":
     import argparse
 
     # create arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("-m", "--model", metavar="model", required=True, choices=[
+    parser.add_argument("-m", "--model", dest="model", choices=[
         "unsloth/mistral-7b-v0.3-bnb-4bit",
         "unsloth/mistral-7b-instruct-v0.3-bnb-4bit",
         "unsloth/llama-3-8b-bnb-4bit",
@@ -22,16 +22,17 @@ if __name__ == "main":
         "unsloth/Phi-3-medium-4k-instruct",
         "unsloth/mistral-7b-bnb-4bit",
         "unsloth/gemma-7b-bnb-4bit",
-    ], help="The base model to fine-tune. Must be a model that supports 4bit quantization")
-    parser.add_argument("-r", "--rank", metavar="lora_rank", type=int, default=16,
+    ], default="unsloth/llama-3-8b-Instruct-bnb-4bit",
+                        help="The base model to fine-tune. Must be a model that supports 4bit quantization")
+    parser.add_argument("-r", "--rank", dest="lora_rank", type=int, default=16,
                         help="The LoRA rank of the fine-tuning process")
-    parser.add_argument("-a", "--alpha", metavar="lora_alpha", type=int, default=16,
+    parser.add_argument("-a", "--alpha", dest="lora_alpha", type=int, default=16,
                         help="The scaling value of the fine-tuning process")
-    parser.add_argument("-lr", "--learning_rate", metavar="learning_rate", type=float, default=2e-4,
+    parser.add_argument("-lr", "--learning_rate", dest="learning_rate", type=float, default=2e-4,
                         help="The learning rate during fine-tuning")
-    parser.add_argument("-t", "--template", metavar="template_index", type=int, choices=[0, 1, 2],
+    parser.add_argument("-t", "--template", dest="template_index", type=int, choices=[0, 1, 2],
                         default=0, help="The index of the chat template")
-    parser.add_argument("-f", "-full", metavar="full_run", action="store_true",
+    parser.add_argument("-f", "-full", dest="full_run", action="store_true",
                         help="If included, will attempt to go through a full epoch during training instead of 60 steps")
     args = parser.parse_args()
 
