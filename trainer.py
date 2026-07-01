@@ -28,7 +28,7 @@ if __name__ == "__main__":
                         help="The LoRA rank of the fine-tuning process")
     parser.add_argument("-a", "--alpha", dest="lora_alpha", type=int, default=16,
                         help="The scaling value of the fine-tuning process")
-    parser.add_argument("-lr", "--learning_rate", dest="learning_rate", type=float, default=2e-4,
+    parser.add_argument("-lr", "--learning-rate", dest="learning_rate", type=float, default=2e-4,
                         help="The learning rate during fine-tuning")
     parser.add_argument("-t", "--template", dest="template_index", type=int, choices=[0, 1, 2],
                         default=0, help="The index of the chat template")
